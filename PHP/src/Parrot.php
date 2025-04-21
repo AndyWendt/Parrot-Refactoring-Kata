@@ -38,7 +38,7 @@ class Parrot implements ParrotInterface
     {
         return match ($this->type) {
             ParrotTypeEnum::EUROPEAN => $this->instance->getSpeed(),
-            ParrotTypeEnum::AFRICAN => max(0, $this->getBaseSpeed() - $this->getLoadFactor() * $this->numberOfCoconuts),
+            ParrotTypeEnum::AFRICAN => $this->instance->getSpeed(),
             ParrotTypeEnum::NORWEGIAN_BLUE => $this->isNailed ? 0 : $this->getBaseSpeedWith($this->voltage),
             default => throw new Exception('Should be unreachable'),
         };
@@ -86,6 +86,16 @@ class AfricanParrot implements ParrotInterface
     public function getCry(): string
     {
         return 'Sqaark!';
+    }
+
+    private function getLoadFactor(): float
+    {
+        return 9.0;
+    }
+
+    private function getBaseSpeed(): float
+    {
+        return 12.0;
     }
 }
 
