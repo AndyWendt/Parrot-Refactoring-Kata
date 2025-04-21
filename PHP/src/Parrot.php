@@ -10,11 +10,12 @@ class Parrot implements ParrotInterface
 {
     private $instance;
 
-    private static function instance($type, $numberOfCoconuts, $voltage, $isNailed)
+    private static function instance(int $type, int $numberOfCoconuts, float $voltage, bool $isNailed)
     {
         return match ($type) {
             ParrotTypeEnum::EUROPEAN => new EuropeanParrot(),
             ParrotTypeEnum::AFRICAN => new AfricanParrot($numberOfCoconuts),
+            ParrotTypeEnum::NORWEGIAN_BLUE => new NorwegianBlueParrot($voltage),
             default => null
         };
     }
@@ -52,7 +53,7 @@ class Parrot implements ParrotInterface
         return match ($this->type) {
             ParrotTypeEnum::EUROPEAN => $this->instance->getCry(),
             ParrotTypeEnum::AFRICAN => $this->instance->getCry(),
-            ParrotTypeEnum::NORWEGIAN_BLUE => $this->voltage > 0 ? 'Bzzzzzz' : '...',
+            ParrotTypeEnum::NORWEGIAN_BLUE => $this->instance->getCry(),
             default => throw new Exception('Should be unreachable'),
         };
     }
@@ -73,9 +74,27 @@ class Parrot implements ParrotInterface
     }
 }
 
+class NorwegianBlueParrot implements ParrotInterface
+{
+    public function __construct(private float $voltage)
+    {
+
+    }
+
+    public function getSpeed(): float
+    {
+        // TODO: Implement getSpeed() method.
+    }
+
+    public function getCry(): string
+    {
+        return $this->voltage > 0 ? 'Bzzzzzz' : '...';
+    }
+}
+
 class AfricanParrot implements ParrotInterface
 {
-    public function __construct(public int $numberOfCoconuts)
+    public function __construct(private int $numberOfCoconuts)
     {}
 
     public function getSpeed(): float
