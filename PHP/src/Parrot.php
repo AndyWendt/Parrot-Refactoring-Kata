@@ -57,16 +57,6 @@ class Parrot implements ParrotInterface
             default => throw new Exception('Should be unreachable'),
         };
     }
-
-    private function getBaseSpeedWith(float $voltage): float
-    {
-        return min(24.0, $voltage * $this->getBaseSpeed());
-    }
-
-    private function getBaseSpeed(): float
-    {
-        return 12.0;
-    }
 }
 
 class NorwegianBlueParrot implements ParrotInterface
