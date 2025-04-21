@@ -6,8 +6,19 @@ namespace Parrot;
 
 use Exception;
 
-class Parrot
+class Parrot implements ParrotInterface
 {
+    private $instance;
+
+    private static function instance($type, $numberOfCoconuts, $voltage, $isNailed)
+    {
+        return match ($type) {
+            ParrotTypeEnum::EUROPEAN => new EuropeanParrot(),
+            ParrotTypeEnum::AFRICAN => new AfricanParrot($numberOfCoconuts),
+            default => null
+        };
+    }
+    
     public function __construct(
         /**
          * @var int ParrotTypeEnum
@@ -17,6 +28,7 @@ class Parrot
         private float $voltage,
         private bool $isNailed
     ) {
+        $this->instance = self::instance($type, $this->numberOfCoconuts, $this->voltage, $this->isNailed);
     }
 
     /**
@@ -25,7 +37,7 @@ class Parrot
     public function getSpeed(): float
     {
         return match ($this->type) {
-            ParrotTypeEnum::EUROPEAN => $this->getBaseSpeed(),
+            ParrotTypeEnum::EUROPEAN => $this->instance->getSpeed(),
             ParrotTypeEnum::AFRICAN => max(0, $this->getBaseSpeed() - $this->getLoadFactor() * $this->numberOfCoconuts),
             ParrotTypeEnum::NORWEGIAN_BLUE => $this->isNailed ? 0 : $this->getBaseSpeedWith($this->voltage),
             default => throw new Exception('Should be unreachable'),
@@ -38,8 +50,8 @@ class Parrot
     public function getCry(): string
     {
         return match ($this->type) {
-            ParrotTypeEnum::EUROPEAN => 'Sqoork!',
-            ParrotTypeEnum::AFRICAN => 'Sqaark!',
+            ParrotTypeEnum::EUROPEAN => $this->instance->getCry(),
+            ParrotTypeEnum::AFRICAN => $this->instance->getCry(),
             ParrotTypeEnum::NORWEGIAN_BLUE => $this->voltage > 0 ? 'Bzzzzzz' : '...',
             default => throw new Exception('Should be unreachable'),
         };
@@ -60,3 +72,38 @@ class Parrot
         return 12.0;
     }
 }
+
+class AfricanParrot implements ParrotInterface
+{
+    public function __construct(public int $numberOfCoconuts)
+    {}
+
+    public function getSpeed(): float
+    {
+        return max(0, $this->getBaseSpeed() - $this->getLoadFactor() * $this->numberOfCoconuts);
+    }
+
+    public function getCry(): string
+    {
+        return 'Sqaark!';
+    }
+}
+
+class EuropeanParrot implements ParrotInterface
+{
+    public function getCry(): string
+    {
+        return 'Sqoork!';
+    }
+
+    public function getSpeed(): float
+    {
+        return $this->getBaseSpeed();
+    }
+
+    private function getBaseSpeed(): float
+    {
+        return 12.0;
+    }
+}
+
