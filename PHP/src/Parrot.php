@@ -54,7 +54,7 @@ class Parrot implements ParrotInterface
             ParrotTypeEnum::EUROPEAN => $this->instance->getCry(),
             ParrotTypeEnum::AFRICAN => $this->instance->getCry(),
             ParrotTypeEnum::NORWEGIAN_BLUE => $this->instance->getCry(),
-            default => throw new Exception('Should be unreachable'),
+            default => $this->instance->getCry(),
         };
     }
 }
@@ -69,7 +69,7 @@ class NullParrot implements ParrotInterface
 
     public function getCry(): string
     {
-        // TODO: Implement getCry() method.
+        return throw new Exception('Should be unreachable');
     }
 }
 
