@@ -16,7 +16,7 @@ class Parrot implements ParrotInterface
             ParrotTypeEnum::EUROPEAN => new EuropeanParrot(),
             ParrotTypeEnum::AFRICAN => new AfricanParrot($numberOfCoconuts),
             ParrotTypeEnum::NORWEGIAN_BLUE => new NorwegianBlueParrot($voltage, $isNailed),
-            default => null
+            default => new NullParrot()
         };
     }
     
@@ -41,7 +41,7 @@ class Parrot implements ParrotInterface
             ParrotTypeEnum::EUROPEAN => $this->instance->getSpeed(),
             ParrotTypeEnum::AFRICAN => $this->instance->getSpeed(),
             ParrotTypeEnum::NORWEGIAN_BLUE => $this->instance->getSpeed(),
-            default => throw new Exception('Should be unreachable'),
+            default => $this->instance->getSpeed(),
         };
     }
 
@@ -56,6 +56,20 @@ class Parrot implements ParrotInterface
             ParrotTypeEnum::NORWEGIAN_BLUE => $this->instance->getCry(),
             default => throw new Exception('Should be unreachable'),
         };
+    }
+}
+
+class NullParrot implements ParrotInterface
+{
+
+    public function getSpeed(): float
+    {
+        throw new Exception('Should be unreachable');
+    }
+
+    public function getCry(): string
+    {
+        // TODO: Implement getCry() method.
     }
 }
 
