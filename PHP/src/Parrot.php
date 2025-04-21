@@ -33,9 +33,14 @@ class Parrot implements ParrotInterface
     {
         return throw new Exception('Should be unreachable');
     }
+
+    protected function getBaseSpeed(): float
+    {
+        return 12.0;
+    }
 }
 
-class NorwegianBlueParrot implements ParrotInterface
+class NorwegianBlueParrot extends Parrot
 {
     public function __construct(private float $voltage, private bool $isNailed)
     {
@@ -56,14 +61,9 @@ class NorwegianBlueParrot implements ParrotInterface
     {
         return min(24.0, $voltage * $this->getBaseSpeed());
     }
-
-    private function getBaseSpeed(): float
-    {
-        return 12.0;
-    }
 }
 
-class AfricanParrot implements ParrotInterface
+class AfricanParrot extends Parrot
 {
     public function __construct(private int $numberOfCoconuts)
     {}
@@ -82,14 +82,9 @@ class AfricanParrot implements ParrotInterface
     {
         return 9.0;
     }
-
-    private function getBaseSpeed(): float
-    {
-        return 12.0;
-    }
 }
 
-class EuropeanParrot implements ParrotInterface
+class EuropeanParrot extends Parrot
 {
     public function getCry(): string
     {
@@ -99,11 +94,6 @@ class EuropeanParrot implements ParrotInterface
     public function getSpeed(): float
     {
         return $this->getBaseSpeed();
-    }
-
-    private function getBaseSpeed(): float
-    {
-        return 12.0;
     }
 }
 
