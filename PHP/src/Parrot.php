@@ -15,7 +15,7 @@ class Parrot implements ParrotInterface
         return match ($type) {
             ParrotTypeEnum::EUROPEAN => new EuropeanParrot(),
             ParrotTypeEnum::AFRICAN => new AfricanParrot($numberOfCoconuts),
-            ParrotTypeEnum::NORWEGIAN_BLUE => new NorwegianBlueParrot($voltage),
+            ParrotTypeEnum::NORWEGIAN_BLUE => new NorwegianBlueParrot($voltage, $isNailed),
             default => null
         };
     }
@@ -40,7 +40,7 @@ class Parrot implements ParrotInterface
         return match ($this->type) {
             ParrotTypeEnum::EUROPEAN => $this->instance->getSpeed(),
             ParrotTypeEnum::AFRICAN => $this->instance->getSpeed(),
-            ParrotTypeEnum::NORWEGIAN_BLUE => $this->isNailed ? 0 : $this->getBaseSpeedWith($this->voltage),
+            ParrotTypeEnum::NORWEGIAN_BLUE => $this->instance->getSpeed(),
             default => throw new Exception('Should be unreachable'),
         };
     }
@@ -71,19 +71,29 @@ class Parrot implements ParrotInterface
 
 class NorwegianBlueParrot implements ParrotInterface
 {
-    public function __construct(private float $voltage)
+    public function __construct(private float $voltage, private bool $isNailed)
     {
 
     }
 
     public function getSpeed(): float
     {
-        // TODO: Implement getSpeed() method.
+        return $this->isNailed ? 0 : $this->getBaseSpeedWith($this->voltage);
     }
 
     public function getCry(): string
     {
         return $this->voltage > 0 ? 'Bzzzzzz' : '...';
+    }
+
+    private function getBaseSpeedWith(float $voltage): float
+    {
+        return min(24.0, $voltage * $this->getBaseSpeed());
+    }
+
+    private function getBaseSpeed(): float
+    {
+        return 12.0;
     }
 }
 
