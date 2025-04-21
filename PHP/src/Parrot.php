@@ -10,7 +10,7 @@ class Parrot implements ParrotInterface
 {
     private $instance;
 
-    private static function instance(int $type, int $numberOfCoconuts, float $voltage, bool $isNailed)
+    public static function instance(int $type, int $numberOfCoconuts, float $voltage, bool $isNailed)
     {
         return match ($type) {
             ParrotTypeEnum::EUROPEAN => new EuropeanParrot(),
