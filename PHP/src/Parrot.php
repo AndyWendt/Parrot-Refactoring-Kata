@@ -63,11 +63,6 @@ class Parrot implements ParrotInterface
         return min(24.0, $voltage * $this->getBaseSpeed());
     }
 
-    private function getLoadFactor(): float
-    {
-        return 9.0;
-    }
-
     private function getBaseSpeed(): float
     {
         return 12.0;
