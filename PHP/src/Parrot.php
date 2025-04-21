@@ -37,12 +37,7 @@ class Parrot implements ParrotInterface
      */
     public function getSpeed(): float
     {
-        return match ($this->type) {
-            ParrotTypeEnum::EUROPEAN => $this->instance->getSpeed(),
-            ParrotTypeEnum::AFRICAN => $this->instance->getSpeed(),
-            ParrotTypeEnum::NORWEGIAN_BLUE => $this->instance->getSpeed(),
-            default => $this->instance->getSpeed(),
-        };
+        return $this->instance->getSpeed();
     }
 
     /**
@@ -50,12 +45,7 @@ class Parrot implements ParrotInterface
      */
     public function getCry(): string
     {
-        return match ($this->type) {
-            ParrotTypeEnum::EUROPEAN => $this->instance->getCry(),
-            ParrotTypeEnum::AFRICAN => $this->instance->getCry(),
-            ParrotTypeEnum::NORWEGIAN_BLUE => $this->instance->getCry(),
-            default => $this->instance->getCry(),
-        };
+        return $this->instance->getCry();
     }
 }
 
