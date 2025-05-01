@@ -23,7 +23,7 @@ export class Parrot {
 
     constructor(private parrotType: ParrotTypes,
                 protected numberOfCoconuts: number,
-                private voltage: number,
+                protected voltage: number,
                 private isNailed: boolean) {
     }
 
@@ -44,10 +44,6 @@ export class Parrot {
     }
 
     public getCry(): String {
-        switch (this.parrotType) {
-            case ParrotTypes.NORWEGIAN_BLUE:
-                return this.voltage > 0 ? "Bzzzzzz" : "...";
-        }
         throw new Error("Should be unreachable");
     }
 
@@ -78,5 +74,7 @@ class AfricanParrot extends Parrot {
 }
 
 class NorwegianBlueParrot extends Parrot {
-
+    public getCry(): String {
+        return this.voltage > 0 ? "Bzzzzzz" : "...";
+    }
 }
