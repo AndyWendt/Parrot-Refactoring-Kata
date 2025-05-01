@@ -5,6 +5,14 @@ export enum ParrotTypes {
 }
 
 export class Parrot {
+    public static createInstance(parrotType: ParrotTypes,
+                                 numberOfCoconuts: number,
+                                 voltage: number,
+                                 isNailed: boolean) {
+
+        return new Parrot(parrotType, numberOfCoconuts, voltage, isNailed);
+    }
+
     constructor(private parrotType: ParrotTypes,
                 private numberOfCoconuts: number,
                 private voltage: number,
