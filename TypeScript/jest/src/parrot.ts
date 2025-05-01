@@ -45,8 +45,6 @@ export class Parrot {
 
     public getCry(): String {
         switch (this.parrotType) {
-            case ParrotTypes.AFRICAN:
-                return "Sqaark!";
             case ParrotTypes.NORWEGIAN_BLUE:
                 return this.voltage > 0 ? "Bzzzzzz" : "...";
         }
@@ -68,6 +66,10 @@ class EuropeanParrot extends Parrot {
 class AfricanParrot extends Parrot {
     public getSpeed(): number {
         return Math.max(0, this.getBaseSpeed() - this.getLoadFactor() * this.numberOfCoconuts);
+    }
+
+    public getCry(): String {
+        return "Sqaark!";
     }
 
     private getLoadFactor(): number {
