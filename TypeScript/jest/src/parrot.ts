@@ -51,8 +51,6 @@ export class Parrot {
 
     public getCry(): String {
         switch (this.parrotType) {
-            case ParrotTypes.EUROPEAN:
-                return "Sqoork!";
             case ParrotTypes.AFRICAN:
                 return "Sqaark!";
             case ParrotTypes.NORWEGIAN_BLUE:
@@ -66,6 +64,10 @@ export class Parrot {
 class EuropeanParrot extends Parrot {
     public getSpeed(): number {
         return this.getBaseSpeed();
+    }
+
+    public getCry(): String {
+        return "Sqoork!";
     }
 }
 
