@@ -11,11 +11,11 @@ export class Parrot {
                                  isNailed: boolean) {
         switch (parrotType) {
             case ParrotTypes.EUROPEAN:
-                return new Parrot(parrotType, numberOfCoconuts, voltage, isNailed);
+                return new EuropeanParrot(parrotType, numberOfCoconuts, voltage, isNailed);
             case ParrotTypes.AFRICAN:
-                return new Parrot(parrotType, numberOfCoconuts, voltage, isNailed);
+                return new AfricanParrot(parrotType, numberOfCoconuts, voltage, isNailed);
             case ParrotTypes.NORWEGIAN_BLUE:
-                return new Parrot(parrotType, numberOfCoconuts, voltage, isNailed);
+                return new NorwegianBlueParrot(parrotType, numberOfCoconuts, voltage, isNailed);
             default:
                 throw new Error("Should be unreachable");
         }
@@ -62,5 +62,17 @@ export class Parrot {
         }
         throw new Error("Should be unreachable");
     }
+
+}
+
+class EuropeanParrot extends Parrot {
+
+}
+
+class AfricanParrot extends Parrot {
+
+}
+
+class NorwegianBlueParrot extends Parrot {
 
 }
