@@ -29,8 +29,6 @@ export class Parrot {
 
     public getSpeed(): number {
         switch (this.parrotType) {
-            case ParrotTypes.EUROPEAN:
-                return this.getBaseSpeed();
             case ParrotTypes.AFRICAN:
                 return Math.max(0, this.getBaseSpeed() - this.getLoadFactor() * this.numberOfCoconuts);
             case ParrotTypes.NORWEGIAN_BLUE:
@@ -39,7 +37,7 @@ export class Parrot {
         throw new Error("Should be unreachable");
     }
 
-    private getBaseSpeed(): number {
+    protected getBaseSpeed(): number {
         return 12;
     }
 
@@ -66,7 +64,9 @@ export class Parrot {
 }
 
 class EuropeanParrot extends Parrot {
-
+    public getSpeed(): number {
+        return this.getBaseSpeed();
+    }
 }
 
 class AfricanParrot extends Parrot {
