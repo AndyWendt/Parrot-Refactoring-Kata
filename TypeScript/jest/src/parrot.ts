@@ -9,8 +9,16 @@ export class Parrot {
                                  numberOfCoconuts: number,
                                  voltage: number,
                                  isNailed: boolean) {
-
-        return new Parrot(parrotType, numberOfCoconuts, voltage, isNailed);
+        switch (parrotType) {
+            case ParrotTypes.EUROPEAN:
+                return new Parrot(parrotType, numberOfCoconuts, voltage, isNailed);
+            case ParrotTypes.AFRICAN:
+                return new Parrot(parrotType, numberOfCoconuts, voltage, isNailed);
+            case ParrotTypes.NORWEGIAN_BLUE:
+                return new Parrot(parrotType, numberOfCoconuts, voltage, isNailed);
+            default:
+                throw new Error("Should be unreachable");
+        }
     }
 
     constructor(private parrotType: ParrotTypes,
