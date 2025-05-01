@@ -22,15 +22,13 @@ export class Parrot {
     }
 
     constructor(private parrotType: ParrotTypes,
-                private numberOfCoconuts: number,
+                protected numberOfCoconuts: number,
                 private voltage: number,
                 private isNailed: boolean) {
     }
 
     public getSpeed(): number {
         switch (this.parrotType) {
-            case ParrotTypes.AFRICAN:
-                return Math.max(0, this.getBaseSpeed() - this.getLoadFactor() * this.numberOfCoconuts);
             case ParrotTypes.NORWEGIAN_BLUE:
                 return (this.isNailed) ? 0 : this.getBaseSpeedWithVoltage(this.voltage);
         }
@@ -39,10 +37,6 @@ export class Parrot {
 
     protected getBaseSpeed(): number {
         return 12;
-    }
-
-    private getLoadFactor(): number {
-        return 9;
     }
 
     private getBaseSpeedWithVoltage(voltage: number): number {
@@ -72,7 +66,13 @@ class EuropeanParrot extends Parrot {
 }
 
 class AfricanParrot extends Parrot {
+    public getSpeed(): number {
+        return Math.max(0, this.getBaseSpeed() - this.getLoadFactor() * this.numberOfCoconuts);
+    }
 
+    private getLoadFactor(): number {
+        return 9;
+    }
 }
 
 class NorwegianBlueParrot extends Parrot {
