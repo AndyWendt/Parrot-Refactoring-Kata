@@ -13,9 +13,9 @@ export class Parrot {
             case ParrotTypes.EUROPEAN:
                 return new EuropeanParrot();
             case ParrotTypes.AFRICAN:
-                return new AfricanParrot(numberOfCoconuts, voltage, isNailed);
+                return new AfricanParrot(numberOfCoconuts);
             case ParrotTypes.NORWEGIAN_BLUE:
-                return new NorwegianBlueParrot(numberOfCoconuts, voltage, isNailed);
+                return new NorwegianBlueParrot(voltage, isNailed);
             default:
                 throw new Error("Should be unreachable");
         }
@@ -45,10 +45,7 @@ class EuropeanParrot extends Parrot {
 }
 
 class AfricanParrot extends Parrot {
-    constructor(private numberOfCoconuts: number,
-                private voltage: number,
-                private isNailed: boolean) {
-
+    constructor(private numberOfCoconuts: number) {
         super()
     }
 
@@ -66,8 +63,7 @@ class AfricanParrot extends Parrot {
 }
 
 class NorwegianBlueParrot extends Parrot {
-    constructor(private numberOfCoconuts: number,
-                private voltage: number,
+    constructor(private voltage: number,
                 private isNailed: boolean) {
 
         super()
